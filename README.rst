@@ -25,7 +25,7 @@ Sources via `hg-git <https://github.com/schacon/hg-git>`_:
 Usage
 -----
 
-Use as a class. Do not instaniate it::
+Use as a class. Do not instantiate it::
 
     class AnyZipAccess(zipaccess.ZipAccess):
         any_zip = True  # custom modifications here
@@ -52,7 +52,7 @@ so other modules can easily use::
 Note on `Google App Engine <http://code.google.com/appengine>`_ (GAE)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-On GAE, __builtin__ changes are not reflected, even in the current module.
+On GAE, the __builtin__ module changes are not reflected, even in the local name space.
 
 To use zip access in any GAE module, you need to enable it for that module locals::
 
@@ -62,7 +62,7 @@ To use zip access in any GAE module, you need to enable it for that module local
     except ImportError:
         pass
 
-Alternatively, only enable zip access, if it was already registered::
+Alternatively, only enable zip access locally, if it was already registered::
 
     try:
         os.zipaccess.enable(locals())
@@ -77,20 +77,21 @@ Or enable it for target modules externally::
         'tipfy.template',
         'werkzeug.debug.tbtools',
         ])
-    # It imports all the modules though, which may not be what you want.
+    # It imports all the modules though, which may be not what you want.
     # If you know, how to hook on module import, let me kindly know.
 
 Note, that os.path.isfile and os.path.exists are patched globally. Even on GAE,
 they apply for all modules of given instance. If some modules do support
 zip files, they usually first check if regular file exists, and if not, they
 split the path and check if the zipfile exists.
-With zipaccess.enabled() the regular file check will succeed, which is ok
-as long as file/open functions used later are patched too.
+With zip access enabled, the regular file check will succeed, which is ok
+as long as consequently used file() or open() functions are patched too.
 
 Example:
 
-    In tipfy.debugger.get_loader() the file/zip check is performed,
-    and tipfy.template.Loader or tipfy.template.ZipLoader is used accordingly.
+    The tipfy.debugger.get_loader() function checks if templates are located
+    in a regular directory or in a zip file (``lib/dist.zip`` usually).
+    Then it returns tipfy.template.Loader or tipfy.template.ZipLoader accordingly.
     With zipaccess enabled, the standard tipfy.template.Loader will be used,
     and therefore ``zipaccess.enable('tipfy.template')`` is needed to make it work.
 
