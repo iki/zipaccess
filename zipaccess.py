@@ -14,6 +14,10 @@ Issues:
   https://github.com/iki/zipaccess/issues
 Updates:
   https://github.com/iki/zipaccess/commits/master.atom
+Install via `pip <http://www.pip-installer.org>`_:
+  ``pip install zipaccess``
+Install via `easy_install <http://peak.telecommunity.com/DevCenter/EasyInstall>`_:
+  ``easy_install zipaccess``
 Sources via `git <http://git-scm.com/>`_:
   ``git clone https://github.com/iki/zipaccess``
 Sources via `hg-git <https://github.com/schacon/hg-git>`_:
