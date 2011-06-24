@@ -51,6 +51,8 @@ properties = dict(
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
+        'Topic :: System :: Filesystems',
+        'Topic :: System :: Archiving :: Packaging',
         'Topic :: Software Development :: Libraries :: Python Modules',
         ],
     )
